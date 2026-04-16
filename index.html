@@ -2,97 +2,55 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống VNeID Demo</title>
+    <title>Cổng Dịch Vụ Công - Quản Lý Dân Cư</title>
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Emblem_of_Vietnam.svg/1024px-Emblem_of_Vietnam.svg.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f4f6f9; }
-        .header-bg { background-color: #b71c1c; color: white; padding: 20px 0; text-align: center; }
-        .result-box { display: none; margin-top: 20px; } /* Ẩn kết quả lúc đầu */
+        :root {
+            --gov-red: #da251d;
+            --gov-gold: #ffde00;
+        }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .gov-header {
+            background: linear-gradient(90deg, #da251d 0%, #a51c16 100%);
+            color: white;
+            padding: 15px 0;
+            border-bottom: 4px solid var(--gov-gold);
+        }
+        .navbar-gov { background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-gov { background-color: var(--gov-red); color: white; border: none; }
+        .btn-gov:hover { background-color: #b71c1c; color: white; }
+        .card-gov { border-top: 5px solid var(--gov-red); }
     </style>
 </head>
 <body>
-
-    <div class="header-bg shadow">
-        <h2>HỆ THỐNG QUẢN LÝ DÂN CƯ (BẢN DEMO)</h2>
-        <p>Tra cứu thông tin công dân trực tuyến</p>
+    <div class="gov-header text-center shadow-sm">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Emblem_of_Vietnam.svg/100px-Emblem_of_Vietnam.svg.png" width="60" alt="Logo">
+        <h4 class="mt-2 text-uppercase fw-bold">Cổng Dịch Vụ Công Quốc Gia</h4>
+        <p class="mb-0 small">HỆ THỐNG ĐỊNH DANH VÀ XÁC THỰC ĐIỆN TỬ VNEID</p>
     </div>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4">Tra cứu nhanh</h4>
-                        <div class="input-group mb-3">
-                            <input type="text" id="cccdInput" class="form-control" placeholder="Nhập số CCCD (Ví dụ: 001099000003)">
-                            <button class="btn btn-primary" onclick="traCuu()">Tra cứu</button>
-                        </div>
-                        <div id="errorMessage" class="text-danger mt-2" style="display: none;">Không tìm thấy thông tin công dân này!</div>
-                    </div>
-                </div>
-
-                <div class="card shadow result-box" id="resultCard">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0">Kết quả tra cứu</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Họ và tên:</strong> <span id="resName"></span></p>
-                        <p><strong>Ngày sinh:</strong> <span id="resDob"></span></p>
-                        <p><strong>Quê quán:</strong> <span id="resAddress"></span></p>
-                        <hr>
-                        <h6><strong>Thành viên hộ khẩu:</strong></h6>
-                        <ul id="resFamily" class="mb-0"></ul>
+            <div class="col-md-5">
+                <div class="card card-gov shadow">
+                    <div class="card-body p-4">
+                        <h5 class="text-center mb-4 fw-bold" style="color: var(--gov-red);">ĐĂNG NHẬP HỆ THỐNG</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Số định danh cá nhân (CCCD)</label>
+                                <input type="text" class="form-control" placeholder="Nhập 12 số định danh">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control" placeholder="********">
+                            </div>
+                            <button type="button" class="btn btn-gov w-100 fw-bold">ĐĂNG NHẬP</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Đây là "CSDL ảo" lấy từ dữ liệu Private của bạn
-        const mockDatabase = {
-            "001099000003": {
-                name: "Trần Văn Cha",
-                dob: "15/02/1978",
-                address: "Hà Nội",
-                family: ["Lê Thị Mẹ (Vợ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"]
-            },
-            "038099000007": {
-                name: "Lê Hoàng Sinh Viên",
-                dob: "05/09/2004",
-                address: "Nghệ An",
-                family: ["Chưa có thông tin thành viên (Chủ hộ độc lập)"]
-            }
-        };
-
-        function traCuu() {
-            let cccd = document.getElementById("cccdInput").value.trim();
-            let resultCard = document.getElementById("resultCard");
-            let errorMsg = document.getElementById("errorMessage");
-
-            // Reset trạng thái
-            resultCard.style.display = "none";
-            errorMsg.style.display = "none";
-
-            // Kiểm tra trong CSDL ảo
-            if (mockDatabase[cccd]) {
-                let data = mockDatabase[cccd];
-                document.getElementById("resName").innerText = data.name;
-                document.getElementById("resDob").innerText = data.dob;
-                document.getElementById("resAddress").innerText = data.address;
-                
-                let familyHtml = "";
-                data.family.forEach(person => {
-                    familyHtml += `<li>${person}</li>`;
-                });
-                document.getElementById("resFamily").innerHTML = familyHtml;
-
-                resultCard.style.display = "block"; // Hiện kết quả
-            } else {
-                errorMsg.style.display = "block"; // Hiện báo lỗi
-            }
-        }
-    </script>
 </body>
 </html>
