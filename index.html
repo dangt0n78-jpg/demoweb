@@ -17,10 +17,11 @@
         .btn-gov:hover { background-color: #a51c16; color: white; transform: translateY(-2px); transition: 0.2s;}
         .result-box { display: none; }
         .footer-gov { background-color: #e9ecef; color: #495057; padding: 20px 0; margin-top: auto; font-size: 0.9rem; }
-        .utility-btn { background: #fff; border: 1px solid #dee2e6; border-radius: 12px; padding: 15px 10px; cursor: pointer; transition: all 0.2s; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;}
+        
+        .utility-btn { background: #fff; border: 1px solid #dee2e6; border-radius: 12px; padding: 12px 5px; cursor: pointer; transition: all 0.2s; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;}
         .utility-btn:hover { border-color: var(--gov-red); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(218,37,29,0.1); }
         .utility-btn.active { border: 2px solid var(--gov-red); background-color: #fff9f9; }
-        .utility-icon { font-size: 2rem; margin-bottom: 10px; }
+        .utility-icon { font-size: 1.8rem; margin-bottom: 8px; }
         
         .eid-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #dee2e6; }
         .eid-label { color: #6c757d; font-weight: 500; font-size: 0.9rem; }
@@ -30,6 +31,8 @@
         .bhyt-sub-link { cursor: pointer; padding: 10px 15px; display: inline-block; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; transition: 0.2s; }
         .bhyt-sub-link.active { color: var(--gov-red); border-bottom-color: var(--gov-red); }
         .history-item { padding: 10px; border-left: 3px solid var(--gov-gold); background: #fff; margin-bottom: 10px; border-radius: 0 8px 8px 0; font-size: 0.85rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .cursor-pointer { cursor: pointer; transition: 0.2s; }
+        .cursor-pointer:hover { opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -70,19 +73,24 @@
                         <button class="btn btn-sm btn-light text-danger fw-bold rounded-pill" onclick="location.reload()">Đăng xuất</button>
                     </div>
                     <div class="card-body p-4">
+                        
                         <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
                             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="60" class="rounded-circle border shadow-sm me-3">
                             <div>
-                                <p class="mb-0 text-muted small">Xin chào công dân,</p>
-                                <h4 id="resName" class="text-uppercase fw-bold mb-0" style="color: var(--gov-red);"></h4>
+                                <h4 id="resName" class="text-uppercase fw-bold mb-1" style="color: var(--gov-red);"></h4>
+                                <span class="badge bg-secondary cursor-pointer shadow-sm" onclick="showTab('log')">
+                                    <i class="bi bi-shield-lock"></i> Lịch sử đăng nhập & bảo mật
+                                </span>
                             </div>
                         </div>
                         
-                        <div class="row g-3 mb-4">
-                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-cccd" onclick="showTab('cccd')"><i class="bi bi-person-vcard utility-icon text-primary"></i><span class="fw-bold small">Thẻ Căn Cước</span></div></div>
-                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-gplx" onclick="showTab('gplx')"><i class="bi bi-car-front utility-icon text-success"></i><span class="fw-bold small">Giấy phép lái xe</span></div></div>
-                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-bhyt" onclick="showTab('bhyt')"><i class="bi bi-hospital utility-icon text-danger"></i><span class="fw-bold small">Thẻ BHYT</span></div></div>
-                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-cutru" onclick="showTab('cutru')"><i class="bi bi-house-door utility-icon text-warning"></i><span class="fw-bold small">Thông tin cư trú</span></div></div>
+                        <div class="row g-2 mb-4">
+                            <div class="col-4 col-md-4"><div class="utility-btn" id="btn-cccd" onclick="showTab('cccd')"><i class="bi bi-person-vcard utility-icon text-primary"></i><span class="fw-bold small">Căn Cước</span></div></div>
+                            <div class="col-4 col-md-4"><div class="utility-btn" id="btn-qr" onclick="showTab('qr')"><i class="bi bi-qr-code-scan utility-icon text-dark"></i><span class="fw-bold small">Mã QR</span></div></div>
+                            <div class="col-4 col-md-4"><div class="utility-btn" id="btn-gplx" onclick="showTab('gplx')"><i class="bi bi-car-front utility-icon text-success"></i><span class="fw-bold small">GPLX</span></div></div>
+                            <div class="col-4 col-md-4"><div class="utility-btn" id="btn-bhyt" onclick="showTab('bhyt')"><i class="bi bi-hospital utility-icon text-danger"></i><span class="fw-bold small">Thẻ BHYT</span></div></div>
+                            <div class="col-4 col-md-4"><div class="utility-btn" id="btn-cutru" onclick="showTab('cutru')"><i class="bi bi-house-door utility-icon text-warning"></i><span class="fw-bold small">Cư trú</span></div></div>
+                            <div class="col-4 col-md-4"><div class="utility-btn" id="btn-dvc" onclick="showTab('dvc')"><i class="bi bi-file-earmark-text utility-icon text-info"></i><span class="fw-bold small">Dịch vụ công</span></div></div>
                         </div>
 
                         <div id="detailContent" class="bg-white p-2 rounded border shadow-sm"></div>
@@ -96,85 +104,81 @@
     <footer class="footer-gov text-center">
         <div class="container">
             <p class="mb-1 fw-bold text-uppercase">Cục Cảnh sát Quản lý hành chính về trật tự xã hội - Bộ Công an</p>
-            <p class="mb-0 small text-muted">Website phục vụ báo cáo bài tập lớn SQL & Web.</p>
+            <p class="mb-0 small text-muted">Website phục vụ báo cáo đồ án Web & SQL.</p>
         </div>
     </footer>
 
     <script>
-        // CSDL TỔNG HỢP (FULL 4 TÀI KHOẢN)
+        // CSDL TỔNG HỢP (GIỮ NGUYÊN TOÀN BỘ LOGIC CŨ + MỚI)
         const db = {
             "001099000003": {
-                pass: "MatKhau123@", 
-                name: "Trần Văn Cha", cccd: "001099000003", dob: "15/02/1978", ident: "Nốt ruồi cách 1cm sau cánh mũi phải", issueDate: "10/10/2021",
+                pass: "MatKhau123@", name: "Trần Văn Cha", cccd: "001099000003", dob: "15/02/1978", ident: "Nốt ruồi cách 1cm sau cánh mũi phải", issueDate: "10/10/2021",
                 eID: { noiSinh: "Hà Nội", noiDangKy: "Phường Phố Vọng, Hai Bà Trưng, Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "", oHienTai: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", lastIssue: "10/10/2021", nhomMau: "O", cmnd9: "012345678", job: "Kỹ sư", sdt: "0901234567", email: "cha.tran@gmail.com" },
                 chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Chủ hộ" },
                 gplx: "Hạng A1, B2 - Số: 123456789",
                 bhyt: {
                     verified: { code: "DN4011122233344", start: "01/01/2024", end: "31/12/2024", loc: "Bệnh viện Bạch Mai", loc_code: "01-001" },
                     pending: null, failed: null,
-                    history: [
-                        { date: "01/01/2024", content: "Gia hạn thẻ BHYT thành công. Hiệu lực đến 31/12/2024." },
-                        { date: "15/12/2023", content: "Thay đổi nơi khám chữa bệnh ban đầu từ Trạm y tế phường sang Bệnh viện Bạch Mai." }
-                    ]
+                    history: [{ date: "01/01/2024", content: "Gia hạn thẻ BHYT thành công." }, { date: "15/12/2023", content: "Thay đổi nơi KCB ban đầu." }]
                 },
-                family: ["Lê Thị Mẹ (Vợ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"]
+                family: ["Lê Thị Mẹ (Vợ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"],
+                dvcHistory: []
             },
             "001099000004": {
-                pass: "MatKhau456@", 
-                name: "Lê Thị Mẹ", cccd: "001099000004", dob: "22/11/1982", ident: "Nốt ruồi cách 2cm dưới mép trái", issueDate: "15/05/2021",
+                pass: "MatKhau456@", name: "Lê Thị Mẹ", cccd: "001099000004", dob: "22/11/1982", ident: "Nốt ruồi cách 2cm dưới mép trái", issueDate: "15/05/2021",
                 eID: { noiSinh: "Thanh Hóa", noiDangKy: "UBND Xã Z, Huyện Nông Cống, Thanh Hóa", queQuan: "Thanh Hóa", danToc: "Kinh", tonGiao: "Không", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "", oHienTai: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", lastIssue: "15/05/2021", nhomMau: "B", cmnd9: "171234567", job: "Giáo viên", sdt: "0912345678", email: "me.lethi@gmail.com" },
                 chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Vợ" },
                 gplx: "Hạng A1 - Số: 987654321",
                 bhyt: {
                     verified: { code: "HC4011122233355", start: "01/01/2024", end: "31/12/2028", loc: "Bệnh viện Đa khoa Xanh Pôn", loc_code: "01-004" },
                     pending: null, failed: null,
-                    history: [
-                        { date: "01/01/2024", content: "Cấp lại thẻ do chuyển đơn vị công tác." }
-                    ]
+                    history: [{ date: "01/01/2024", content: "Cấp lại thẻ do chuyển đơn vị công tác." }]
                 },
-                family: ["Trần Văn Cha (Chồng)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"]
+                family: ["Trần Văn Cha (Chồng)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"],
+                dvcHistory: []
             },
             "001099000005": {
-                pass: "MatKhau789@", 
-                name: "Trần Thị Con Gái", cccd: "001099000005", dob: "08/08/2005", ident: "Sẹo thẳng dài 1cm ở đuôi lông mày phải", issueDate: "20/08/2023",
+                pass: "MatKhau789@", name: "Trần Thị Con Gái", cccd: "001099000005", dob: "08/08/2005", ident: "Sẹo thẳng dài 1cm ở đuôi lông mày phải", issueDate: "20/08/2023",
                 eID: { noiSinh: "Hà Nội", noiDangKy: "UBND Phường Phố Vọng, Hai Bà Trưng, Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "Ký túc xá ĐH Bách Khoa Hà Nội", oHienTai: "Ký túc xá ĐH Bách Khoa Hà Nội", lastIssue: "20/08/2023", nhomMau: "O", cmnd9: "", job: "Sinh viên", sdt: "0987654321", email: "congai.tran@student.edu.vn" },
                 chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Con đẻ" },
                 gplx: "Chưa có dữ liệu",
                 bhyt: {
-                    verified: { code: "HS4011122233366", start: "05/09/2023", end: "04/09/2024", loc: "Phòng khám Đa khoa trường ĐHBK", loc_code: "01-088" },
+                    verified: { code: "HS4011122233366", start: "05/09/2023", end: "04/09/2024", loc: "Phòng khám Đa khoa ĐHBK", loc_code: "01-088" },
                     pending: { code: "HS4011122233366" }, failed: null,
-                    history: [
-                        { date: "05/09/2023", content: "Đăng ký cấp thẻ BHYT Học sinh - Sinh viên." }
-                    ]
+                    history: [{ date: "05/09/2023", content: "Đăng ký cấp thẻ BHYT HSSV." }]
                 },
-                family: ["Trần Văn Cha (Cha)", "Lê Thị Mẹ (Mẹ)", "Trần Văn Con Trai (Em trai)"]
+                family: ["Trần Văn Cha (Cha)", "Lê Thị Mẹ (Mẹ)", "Trần Văn Con Trai (Em trai)"],
+                dvcHistory: []
             },
             "038099000007": {
-                pass: "MatKhau000@", 
-                name: "Lê Hoàng Sinh Viên", cccd: "038099000007", dob: "05/09/2004", ident: "Sẹo chấm cách 2cm trên sau đuôi mắt trái", issueDate: "20/09/2022",
-                eID: { noiSinh: "Nghệ An", noiDangKy: "Xã Y, Huyện Quỳnh Lưu, Nghệ An", queQuan: "Nghệ An", danToc: "Kinh", tonGiao: "Công giáo", thuongTru: "Xóm 5, Xã Y, Huyện Quỳnh Lưu, Nghệ An", tamTru: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", oHienTai: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", lastIssue: "20/09/2022", nhomMau: "A", cmnd9: "", job: "Sinh viên", sdt: "0977111222", email: "sinhvien.le@student.edu.vn" },
+                pass: "MatKhau000@", name: "Lê Hoàng Sinh Viên", cccd: "038099000007", dob: "05/09/2004", ident: "Sẹo chấm cách 2cm trên sau đuôi mắt trái", issueDate: "20/09/2022",
+                eID: { noiSinh: "Nghệ An", noiDangKy: "Xã Y, Quỳnh Lưu, Nghệ An", queQuan: "Nghệ An", danToc: "Kinh", tonGiao: "Công giáo", thuongTru: "Xóm 5, Xã Y, Quỳnh Lưu, Nghệ An", tamTru: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", oHienTai: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", lastIssue: "20/09/2022", nhomMau: "A", cmnd9: "", job: "Sinh viên", sdt: "0977111222", email: "sinhvien.le@student.edu.vn" },
                 chuHo: { cccd: "038099000007", name: "Lê Hoàng Sinh Viên", quanHe: "Chủ hộ" },
                 gplx: "Hạng A1 - Số: 456123789",
                 bhyt: {
                     verified: { code: "SV4011122233377", start: "01/10/2023", end: "30/09/2024", loc: "Bệnh viện Đại học Y Hà Nội", loc_code: "01-015" },
                     pending: null, 
-                    failed: { code: "SV4011122233366", reason: "Thông tin thẻ cũ không khớp với dữ liệu dân cư mới cập nhật." },
-                    history: [
-                        { date: "01/10/2023", content: "Cấp mới thẻ BHYT sinh viên tại cơ sở giáo dục." }
-                    ]
+                    failed: { code: "SV4011122233366", reason: "Thông tin thẻ cũ không khớp với dữ liệu dân cư." },
+                    history: [{ date: "01/10/2023", content: "Cấp mới thẻ BHYT sinh viên." }]
                 },
-                family: ["Chủ hộ độc lập (Tạm trú)"]
+                family: ["Chủ hộ độc lập (Tạm trú)"],
+                dvcHistory: []
             }
         };
 
         let currentUser = null;
+        let loginTime = "";
 
         function handleLogin() {
             const user = document.getElementById("userCCCD").value.trim();
             const pass = document.getElementById("userPass").value;
             const error = document.getElementById("loginError");
+            
             if (db[user] && db[user].pass === pass) {
                 currentUser = db[user];
+                const now = new Date();
+                loginTime = now.toLocaleTimeString() + " - " + now.toLocaleDateString();
+
                 document.getElementById("loginSection").style.display = "none";
                 document.getElementById("infoSection").style.display = "block";
                 document.getElementById("resName").innerText = currentUser.name;
@@ -186,55 +190,91 @@
 
         function showTab(tabName) {
             document.querySelectorAll('.utility-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + tabName).classList.add('active');
+            if(document.getElementById('btn-' + tabName)) {
+                document.getElementById('btn-' + tabName).classList.add('active');
+            }
+
             let contentDiv = document.getElementById("detailContent");
             
             if (tabName === 'cccd') {
                 const e = currentUser.eID;
                 contentDiv.innerHTML = `
                     <div class="p-3">
-                        <h5 class="text-primary fw-bold mb-3 border-bottom pb-2">THẺ CĂN CƯỚC</h5>
+                        <h5 class="text-primary fw-bold mb-3 border-bottom pb-2"><i class="bi bi-person-vcard"></i> THẺ CĂN CƯỚC</h5>
                         <p><strong>Đặc điểm nhận dạng:</strong> ${currentUser.ident}</p>
                         <p><strong>Ngày cấp:</strong> ${currentUser.issueDate}</p>
-                        <h5 class="text-danger fw-bold mt-4 mb-3">CĂN CƯỚC ĐIỆN TỬ</h5>
-                        <div class="bg-light p-3 rounded">
+                        <h5 class="text-danger fw-bold mt-4 mb-3"><i class="bi bi-cpu"></i> CĂN CƯỚC ĐIỆN TỬ</h5>
+                        <div class="bg-light p-3 rounded shadow-sm border">
                             ${Object.entries(e).map(([k,v]) => {
-                                const labels = { noiSinh:"Nơi sinh", noiDangKy:"Nơi đăng ký khai sinh", queQuan:"Quê quán", danToc:"Dân tộc", tonGiao:"Tôn giáo", thuongTru:"Nơi thường trú", tamTru:"Nơi tạm trú", oHienTai:"Nơi ở hiện tại", lastIssue:"Ngày cấp CCCD gần nhất", nhomMau:"Nhóm máu", cmnd9:"Số CMND 9 số", job:"Nghề nghiệp", sdt:"Số thuê bao di động", email:"Địa chỉ thư điện tử" };
+                                const labels = { noiSinh:"Nơi sinh", noiDangKy:"Nơi ĐKKD", queQuan:"Quê quán", danToc:"Dân tộc", tonGiao:"Tôn giáo", thuongTru:"Nơi thường trú", tamTru:"Nơi tạm trú", oHienTai:"Nơi ở hiện tại", lastIssue:"Ngày cấp", nhomMau:"Nhóm máu", cmnd9:"CMND 9 số", job:"Nghề nghiệp", sdt:"Số điện thoại", email:"Email" };
                                 return `<div class="eid-item"><span class="eid-label">${labels[k]}</span><span class="eid-val">${v || "---"}</span></div>`;
                             }).join('')}
                         </div>
                     </div>`;
-            } else if (tabName === 'bhyt') {
+            } 
+            else if (tabName === 'qr') {
+                contentDiv.innerHTML = `
+                    <div class="p-4 text-center">
+                        <h5 class="text-dark fw-bold mb-4">MÃ QR ĐỊNH DANH ĐIỆN TỬ</h5>
+                        <div class="bg-white p-3 d-inline-block rounded border shadow-sm">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${currentUser.cccd}" alt="QR Code" class="img-fluid">
+                        </div>
+                        <p class="mt-3 text-muted small">Xuất trình mã này khi thực hiện các thủ tục hành chính.</p>
+                        <p class="fs-4 fw-bold tracking-widest text-danger">${currentUser.cccd}</p>
+                    </div>`;
+            }
+            else if (tabName === 'gplx') {
+                contentDiv.innerHTML = `<div class="p-4"><h5 class="text-success fw-bold"><i class="bi bi-car-front"></i> GIẤY PHÉP LÁI XE</h5><p class="mt-3 fs-5">${currentUser.gplx}</p></div>`;
+            }
+            // KHÔI PHỤC BHYT FULL TABS & HISTORY
+            else if (tabName === 'bhyt') {
                 renderBhytContainer();
-            } else if (tabName === 'gplx') {
-                contentDiv.innerHTML = `<div class="p-4"><h5 class="text-success fw-bold">GIẤY PHÉP LÁI XE</h5><p class="mt-3 fs-5">${currentUser.gplx}</p></div>`;
-            } else if (tabName === 'cutru') {
+            } 
+            // KHÔI PHỤC CƯ TRÚ FULL DETAILS
+            else if (tabName === 'cutru') {
                 let famHtml = currentUser.family.map(m => `<li class="list-group-item bg-transparent px-0 border-bottom-0 pb-1">🔹 <strong>${m.split('(')[0]}</strong> <span class="badge bg-secondary rounded-pill">${m.match(/\(([^)]+)\)/)?.[1] || ""}</span></li>`).join('');
-                
                 contentDiv.innerHTML = `
                     <div class="p-4">
-                        <h5 class="text-warning fw-bold border-bottom pb-2 mb-4">THÔNG TIN CƯ TRÚ</h5>
-                        
+                        <h5 class="text-warning fw-bold border-bottom pb-2 mb-4"><i class="bi bi-house-door"></i> THÔNG TIN CƯ TRÚ</h5>
                         <h6 class="fw-bold mb-3 text-secondary">ĐỊA CHỈ CƯ TRÚ:</h6>
                         <div class="bg-light p-3 rounded mb-4 shadow-sm border">
                             <div class="eid-item"><span class="eid-label">Nơi thường trú</span><span class="eid-val">${currentUser.eID.thuongTru}</span></div>
                             <div class="eid-item"><span class="eid-label">Nơi tạm trú</span><span class="eid-val">${currentUser.eID.tamTru || "---"}</span></div>
                             <div class="eid-item"><span class="eid-label">Nơi ở hiện tại</span><span class="eid-val">${currentUser.eID.oHienTai || "---"}</span></div>
                         </div>
-
                         <h6 class="fw-bold mb-3 text-secondary">THÔNG TIN CHỦ HỘ:</h6>
                         <div class="bg-light p-3 rounded mb-4 shadow-sm border border-start border-warning border-4">
                             <div class="eid-item"><span class="eid-label">Họ và tên chủ hộ</span><span class="eid-val text-primary fs-6">${currentUser.chuHo.name}</span></div>
                             <div class="eid-item"><span class="eid-label">Số ĐDCN chủ hộ</span><span class="eid-val">${currentUser.chuHo.cccd}</span></div>
                             <div class="eid-item"><span class="eid-label">Quan hệ với chủ hộ</span><span class="eid-val text-danger">${currentUser.chuHo.quanHe}</span></div>
                         </div>
-
                         <h6 class="fw-bold mb-3 text-secondary">THÀNH VIÊN TRONG HỘ KHẨU:</h6>
                         <ul class="list-group list-group-flush border p-2 bg-light rounded shadow-sm">${famHtml}</ul>
                     </div>`;
             }
+            else if (tabName === 'dvc') {
+                renderDVC();
+            }
+            else if (tabName === 'log') {
+                contentDiv.innerHTML = `
+                    <div class="p-4">
+                        <h5 class="text-secondary fw-bold border-bottom pb-2 mb-3"><i class="bi bi-shield-lock"></i> NHẬT KÝ BẢO MẬT</h5>
+                        <div class="alert alert-success border-success bg-transparent">
+                            <h6 class="fw-bold"><i class="bi bi-laptop"></i> Đăng nhập thành công (Phiên hiện tại)</h6>
+                            <p class="mb-1 small"><strong>Thời gian:</strong> ${loginTime}</p>
+                            <p class="mb-1 small"><strong>Thiết bị:</strong> Trình duyệt Web (Windows)</p>
+                            <p class="mb-0 small"><strong>Địa chỉ IP:</strong> 192.168.1.15</p>
+                        </div>
+                        <div class="alert alert-secondary border-secondary bg-transparent opacity-75">
+                            <h6 class="fw-bold"><i class="bi bi-phone"></i> Đăng nhập thành công</h6>
+                            <p class="mb-1 small"><strong>Thời gian:</strong> 15:30:00 - 10/04/2026</p>
+                            <p class="mb-1 small"><strong>Thiết bị:</strong> Ứng dụng VNeID (Thiết bị di động)</p>
+                        </div>
+                    </div>`;
+            }
         }
 
+        /* ----- HÀM HỖ TRỢ BHYT ----- */
         function renderBhytContainer() {
             let contentDiv = document.getElementById("detailContent");
             contentDiv.innerHTML = `
@@ -247,12 +287,17 @@
                     </div>
                     <div id="bhytSubContent"></div>
                     <hr>
-                    <h6 class="fw-bold mb-3 text-secondary mt-4">LỊCH SỬ THAY ĐỔI THÔNG TIN THẺ:</h6>
+                    <h6 class="fw-bold mb-3 text-secondary mt-4">LỊCH SỬ THAY ĐỔI:</h6>
                     <div id="bhytHistory"></div>
                 </div>
             `;
             switchBhytTab('verified', document.querySelector('.bhyt-sub-link.active'));
-            renderBhytHistory();
+            let histDiv = document.getElementById("bhytHistory");
+            if(currentUser.bhyt.history.length === 0) {
+                histDiv.innerHTML = `<div class="text-muted fst-italic">Chưa có lịch sử thay đổi.</div>`;
+            } else {
+                histDiv.innerHTML = currentUser.bhyt.history.map(h => `<div class="history-item"><div class="fw-bold text-danger small"><i class="bi bi-clock-history"></i> ${h.date}</div><div class="mt-1">${h.content}</div></div>`).join('');
+            }
         }
 
         function switchBhytTab(status, element) {
@@ -260,49 +305,64 @@
             element.classList.add('active');
             let subDiv = document.getElementById("bhytSubContent");
             let data = currentUser.bhyt[status];
-
             if (!data) {
-                subDiv.innerHTML = `<div class="text-center py-4 text-muted fst-italic">Không có dữ liệu trong trạng thái này.</div>`;
-                return;
+                subDiv.innerHTML = `<div class="text-center py-4 text-muted fst-italic">Không có dữ liệu trong trạng thái này.</div>`; return;
             }
-
             if (status === 'verified') {
-                subDiv.innerHTML = `
-                    <div class="bg-light p-3 rounded border-start border-success border-4 shadow-sm">
-                        <div class="eid-item"><span class="eid-label">Mã số BHYT</span><span class="eid-val text-success fs-5">${data.code}</span></div>
-                        <div class="eid-item"><span class="eid-label">Ngày bắt đầu hiệu lực</span><span class="eid-val">${data.start}</span></div>
-                        <div class="eid-item"><span class="eid-label">Ngày hết hiệu lực</span><span class="eid-val">${data.end}</span></div>
-                        <div class="eid-item"><span class="eid-label">Nơi KCB BĐ</span><span class="eid-val">${data.loc}</span></div>
-                        <div class="eid-item"><span class="eid-label">Mã KCB BĐ</span><span class="eid-val">${data.loc_code}</span></div>
-                    </div>
-                `;
+                subDiv.innerHTML = `<div class="bg-light p-3 rounded border-start border-success border-4 shadow-sm">
+                    <div class="eid-item"><span class="eid-label">Mã số BHYT</span><span class="eid-val text-success fs-5">${data.code}</span></div>
+                    <div class="eid-item"><span class="eid-label">Ngày hiệu lực</span><span class="eid-val">${data.start}</span></div>
+                    <div class="eid-item"><span class="eid-label">Ngày hết hạn</span><span class="eid-val">${data.end}</span></div>
+                    <div class="eid-item"><span class="eid-label">Nơi KCB BĐ</span><span class="eid-val">${data.loc}</span></div>
+                </div>`;
             } else if (status === 'failed') {
-                subDiv.innerHTML = `
-                    <div class="alert alert-danger shadow-sm border-danger border-2">
-                        <strong><i class="bi bi-x-circle-fill"></i> Lý do từ chối:</strong> ${data.reason}
-                    </div>
-                `;
+                subDiv.innerHTML = `<div class="alert alert-danger shadow-sm border-danger border-2"><strong><i class="bi bi-x-circle-fill"></i> Lý do từ chối:</strong> ${data.reason}</div>`;
             } else {
-                subDiv.innerHTML = `
-                    <div class="alert alert-warning shadow-sm border-warning border-2">
-                        <strong><i class="bi bi-hourglass-split"></i> Đang xử lý:</strong> Yêu cầu xác thực thẻ ${data.code} đang được cơ quan BHXH kiểm tra.
-                    </div>
-                `;
+                subDiv.innerHTML = `<div class="alert alert-warning shadow-sm border-warning border-2"><strong><i class="bi bi-hourglass-split"></i> Đang xử lý:</strong> Yêu cầu xác thực thẻ ${data.code} đang được kiểm tra.</div>`;
             }
         }
 
-        function renderBhytHistory() {
-            let histDiv = document.getElementById("bhytHistory");
-            if(currentUser.bhyt.history.length === 0) {
-                histDiv.innerHTML = `<div class="text-muted fst-italic">Chưa có lịch sử thay đổi.</div>`;
-                return;
-            }
-            histDiv.innerHTML = currentUser.bhyt.history.map(h => `
-                <div class="history-item">
-                    <div class="fw-bold text-danger small"><i class="bi bi-clock-history"></i> ${h.date}</div>
-                    <div class="mt-1">${h.content}</div>
-                </div>
-            `).join('');
+        /* ----- HÀM HỖ TRỢ DỊCH VỤ CÔNG ----- */
+        function renderDVC() {
+            let histHtml = currentUser.dvcHistory.length === 0 ? `<p class="text-muted small fst-italic">Chưa có hồ sơ nào.</p>` : 
+                currentUser.dvcHistory.map(h => `
+                <div class="border-start border-warning border-4 p-2 bg-light mb-2 rounded shadow-sm">
+                    <span class="badge bg-warning text-dark float-end">Đang chờ duyệt</span>
+                    <strong class="d-block text-primary">${h.loai}</strong>
+                    <small class="text-muted">Nơi đến: ${h.noiDen}</small><br>
+                    <small class="text-muted">Ngày nộp: ${h.ngayNop}</small>
+                </div>`).reverse().join('');
+
+            document.getElementById("detailContent").innerHTML = `
+                <div class="p-4">
+                    <h5 class="text-info fw-bold border-bottom pb-2 mb-3"><i class="bi bi-file-earmark-text"></i> KHAI BÁO CƯ TRÚ TRỰC TUYẾN</h5>
+                    <form id="dvcForm" onsubmit="event.preventDefault(); submitDVC();" class="mb-4">
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold">Loại thủ tục</label>
+                            <select id="dvcLoai" class="form-select" required><option value="Khai báo tạm vắng">Khai báo tạm vắng</option><option value="Đăng ký tạm trú">Đăng ký tạm trú</option></select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold">Nơi đến / Chỗ ở mới</label>
+                            <input type="text" id="dvcNoiDen" class="form-control" placeholder="Nhập địa chỉ chi tiết..." required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6"><label class="form-label small fw-bold">Từ ngày</label><input type="date" id="dvcTuNgay" class="form-control" required></div>
+                            <div class="col-6"><label class="form-label small fw-bold">Đến ngày</label><input type="date" id="dvcDenNgay" class="form-control" required></div>
+                        </div>
+                        <button type="submit" id="btnSubmitDvc" class="btn btn-primary w-100 fw-bold">GỬI HỒ SƠ <i class="bi bi-send"></i></button>
+                    </form>
+                    <h6 class="fw-bold text-secondary">LỊCH SỬ NỘP HỒ SƠ:</h6>
+                    <div id="dvcList">${histHtml}</div>
+                </div>`;
+        }
+
+        function submitDVC() {
+            const btn = document.getElementById("btnSubmitDvc");
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> ĐANG XỬ LÝ...`; btn.disabled = true;
+            setTimeout(() => {
+                currentUser.dvcHistory.push({ loai: document.getElementById("dvcLoai").value, noiDen: document.getElementById("dvcNoiDen").value, ngayNop: new Date().toLocaleDateString() });
+                renderDVC();
+            }, 1000);
         }
     </script>
 </body>
