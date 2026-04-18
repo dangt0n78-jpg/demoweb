@@ -5,59 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cổng Dịch Vụ Công - Định Danh Điện Tử VNeID</title>
     <link rel="icon" type="image/png" href="Gemini_Generated_Image_rwawrmrwawrmrwaw.png">
-    <link rel="shortcut icon" type="image/x-icon" href="Gemini_Generated_Image_rwawrmrwawrmrwaw.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root { --gov-red: #da251d; --gov-gold: #ffde00; }
-        body { 
-            background-color: #f4f6f9; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Ép Footer luôn nằm dưới cùng */
-        }
-        
-        /* Header bóng bẩy hơn */
-        .gov-header {
-            background: linear-gradient(135deg, #b71c1c 0%, #da251d 50%, #e53935 100%);
-            color: white; 
-            padding: 25px 0; 
-            border-bottom: 5px solid var(--gov-gold);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        /* Chỉnh lại thẻ Card cho sang trọng */
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-        .card:hover { box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+        .gov-header { background: linear-gradient(135deg, #b71c1c 0%, #da251d 50%, #e53935 100%); color: white; padding: 25px 0; border-bottom: 5px solid var(--gov-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .card { border: none; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
         .card-login { border-top: 6px solid var(--gov-red); }
-        
-        /* Nút bấm hiệu ứng nổi */
         .btn-gov { background-color: var(--gov-red); color: white; border: none; font-weight: bold; padding: 12px; }
-        .btn-gov:hover { background-color: #a51c16; color: white; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(218, 37, 29, 0.4); }
-        
+        .btn-gov:hover { background-color: #a51c16; color: white; transform: translateY(-2px); transition: 0.2s;}
         .result-box { display: none; }
+        .footer-gov { background-color: #e9ecef; color: #495057; padding: 20px 0; margin-top: auto; font-size: 0.9rem; }
         
-        /* Footer chuẩn cơ quan nhà nước */
-        .footer-gov {
-            background-color: #e9ecef;
-            color: #495057;
-            padding: 20px 0;
-            margin-top: auto; /* Đẩy footer xuống đáy */
-            border-top: 1px solid #dee2e6;
-            font-size: 0.9rem;
-        }
+        /* CSS cho các nút Tiện ích */
+        .utility-btn { background: #fff; border: 1px solid #dee2e6; border-radius: 12px; padding: 15px 10px; cursor: pointer; transition: all 0.2s; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;}
+        .utility-btn:hover { background: #f8f9fa; border-color: var(--gov-red); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(218,37,29,0.1); }
+        .utility-btn.active { border: 2px solid var(--gov-red); background-color: #fff9f9; }
+        .utility-icon { font-size: 2rem; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div class="gov-header text-center">
         <img src="Gemini_Generated_Image_rwawrmrwawrmrwaw.png" width="80" alt="Quốc Huy" class="mb-2">
-        <h3 class="text-uppercase fw-bold text-shadow">Hệ thống Định danh và Xác thực điện tử</h3>
+        <h3 class="text-uppercase fw-bold">Hệ thống Định danh và Xác thực điện tử</h3>
         <p class="mb-0 fw-light">CƠ SỞ DỮ LIỆU QUỐC GIA VỀ DÂN CƯ</p>
     </div>
 
@@ -76,45 +48,65 @@
                             <label class="form-label text-muted fw-bold small">MẬT KHẨU</label>
                             <input type="password" id="userPass" class="form-control form-control-lg bg-light" placeholder="Nhập mật khẩu">
                         </div>
-                        
                         <button id="btnLogin" class="btn btn-gov w-100 rounded-pill" onclick="handleLogin()">
                             <span id="loginText">ĐĂNG NHẬP</span>
-                            <span id="loginSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            <span id="loginSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
                         </button>
-                        
-                        <div id="loginError" class="alert alert-danger mt-3 text-center d-none" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill"></i> Sai CCCD hoặc mật khẩu!
-                        </div>
+                        <div id="loginError" class="alert alert-danger mt-3 text-center d-none"><i class="bi bi-exclamation-triangle-fill"></i> Sai CCCD hoặc mật khẩu!</div>
                     </div>
                 </div>
             </div>
 
-            <div id="infoSection" class="col-md-7 result-box">
+            <div id="infoSection" class="col-md-8 result-box">
                 <div class="card">
-                    <div class="card-header bg-success text-white py-3 border-0" style="border-radius: 12px 12px 0 0;">
-                        <h5 class="mb-0 fw-bold"><i class="bi bi-check-circle-fill"></i> XÁC THỰC THÀNH CÔNG</h5>
+                    <div class="card-header bg-success text-white py-3 border-0 d-flex justify-content-between align-items-center" style="border-radius: 12px 12px 0 0;">
+                        <h5 class="mb-0 fw-bold"><i class="bi bi-shield-check"></i> TÀI KHOẢN ĐỊNH DANH MỨC ĐỘ 2</h5>
+                        <button class="btn btn-sm btn-light text-danger fw-bold rounded-pill" onclick="location.reload()">Đăng xuất</button>
                     </div>
                     <div class="card-body p-4">
-                        <div class="row align-items-center mb-4">
-                            <div class="col-sm-3 text-center mb-3 mb-sm-0">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="img-fluid rounded-circle border shadow-sm" alt="User">
-                            </div>
-                            <div class="col-sm-9">
-                                <h3 id="resName" class="text-uppercase fw-bold" style="color: var(--gov-red);"></h3>
-                                <p class="mb-1 text-muted">Số CCCD: <strong class="text-dark" id="resCCCD"></strong></p>
-                                <p class="mb-1 text-muted">Ngày sinh: <strong class="text-dark" id="resDob"></strong></p>
-                                <p class="mb-0 text-muted">Quê quán: <strong class="text-dark" id="resAddress"></strong></p>
+                        <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="60" class="rounded-circle border shadow-sm me-3" alt="Avatar">
+                            <div>
+                                <p class="mb-0 text-muted small">Xin chào công dân,</p>
+                                <h4 id="resName" class="text-uppercase fw-bold mb-0" style="color: var(--gov-red);"></h4>
                             </div>
                         </div>
                         
-                        <div class="bg-light p-3 rounded border">
-                            <h6 class="fw-bold mb-3 text-secondary">THÔNG TIN THÀNH VIÊN TRONG HỘ KẾT NỐI:</h6>
-                            <ul id="resFamily" class="list-group list-group-flush bg-transparent"></ul>
+                        <h6 class="fw-bold mb-3 text-secondary">VÍ GIẤY TỜ ĐIỆN TỬ:</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-6 col-md-3">
+                                <div class="utility-btn" id="btn-cccd" onclick="showTab('cccd')">
+                                    <i class="bi bi-person-vcard utility-icon text-primary"></i>
+                                    <span class="fw-bold small">Thẻ Căn Cước</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="utility-btn" id="btn-gplx" onclick="showTab('gplx')">
+                                    <i class="bi bi-car-front utility-icon text-success"></i>
+                                    <span class="fw-bold small">Giấy phép lái xe</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="utility-btn" id="btn-bhyt" onclick="showTab('bhyt')">
+                                    <i class="bi bi-hospital utility-icon text-danger"></i>
+                                    <span class="fw-bold small">Thẻ BHYT</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="utility-btn" id="btn-cutru" onclick="showTab('cutru')">
+                                    <i class="bi bi-house-door utility-icon text-warning"></i>
+                                    <span class="fw-bold small">Thông tin cư trú</span>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="text-center mt-4">
-                            <button class="btn btn-outline-danger px-4 rounded-pill" onclick="location.reload()">Đăng xuất an toàn</button>
+
+                        <div id="detailContent" class="bg-light p-4 rounded border shadow-sm">
+                            <div class="text-center text-muted py-3">
+                                <i class="bi bi-hand-index fs-1"></i>
+                                <p class="mt-2">Vui lòng chọn một loại giấy tờ bên trên để xem chi tiết.</p>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -125,41 +117,44 @@
     <footer class="footer-gov text-center">
         <div class="container">
             <p class="mb-1 fw-bold">CỤC CẢNH SÁT QUẢN LÝ HÀNH CHÍNH VỀ TRẬT TỰ XÃ HỘI - BỘ CÔNG AN</p>
-            <p class="mb-0 small">Bản quyền © 2026. Đây là website giả lập phục vụ mục đích học tập.</p>
+            <p class="mb-0 small">Bản quyền © 2026. Website giả lập phục vụ báo cáo bài tập lớn.</p>
         </div>
     </footer>
 
     <script>
+        // CSDL mở rộng thêm dữ liệu GPLX và BHYT
         const db = {
             "001099000003": {
                 pass: "MatKhau123@", 
-                name: "Trần Văn Cha",
-                dob: "15/02/1978",
-                address: "Hà Nội",
+                name: "Trần Văn Cha", cccd: "001099000003", dob: "15/02/1978", address: "Hà Nội",
+                gplx: "Hạng A1, B2 - Số: 123456789",
+                bhyt: "Mã số: DN4011122233344",
                 family: ["Lê Thị Mẹ (Vợ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"]
             },
             "001099000004": {
                 pass: "MatKhau456@", 
-                name: "Lê Thị Mẹ",
-                dob: "22/11/1982",
-                address: "Thanh Hóa",
+                name: "Lê Thị Mẹ", cccd: "001099000004", dob: "22/11/1982", address: "Thanh Hóa",
+                gplx: "Hạng A1 - Số: 987654321",
+                bhyt: "Mã số: HC4011122233355",
                 family: ["Trần Văn Cha (Chồng)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"]
             },
             "001099000005": {
                 pass: "MatKhau789@", 
-                name: "Trần Thị Con Gái",
-                dob: "08/08/2005",
-                address: "Hà Nội",
+                name: "Trần Thị Con Gái", cccd: "001099000005", dob: "08/08/2005", address: "Hà Nội",
+                gplx: "Chưa có dữ liệu",
+                bhyt: "Mã số: HS4011122233366",
                 family: ["Trần Văn Cha (Cha)", "Lê Thị Mẹ (Mẹ)", "Trần Văn Con Trai (Em trai)"]
             },
             "038099000007": {
                 pass: "MatKhau000@", 
-                name: "Lê Hoàng Sinh Viên",
-                dob: "05/09/2004",
-                address: "Nghệ An",
+                name: "Lê Hoàng Sinh Viên", cccd: "038099000007", dob: "05/09/2004", address: "Nghệ An",
+                gplx: "Hạng A1 - Số: 456123789",
+                bhyt: "Mã số: SV4011122233377",
                 family: ["Chủ hộ độc lập (Tạm trú)"]
             }
         };
+
+        let currentUser = null; // Biến lưu người dùng đang đăng nhập
 
         function handleLogin() {
             const user = document.getElementById("userCCCD").value.trim();
@@ -168,45 +163,77 @@
             const btnText = document.getElementById("loginText");
             const spinner = document.getElementById("loginSpinner");
 
-            // Ẩn lỗi cũ đi
             error.classList.add("d-none");
-            
-            // Hiện vòng xoay Loading
             btnText.innerText = "ĐANG XỬ LÝ...";
             spinner.classList.remove("d-none");
             document.getElementById("btnLogin").disabled = true;
 
-            // Giả lập độ trễ mạng 1.2 giây
             setTimeout(() => {
                 if (db[user] && db[user].pass === pass) {
-                    const data = db[user];
-                    
-                    // Đổi giao diện
+                    currentUser = db[user]; // Lưu data người dùng vào biến
                     document.getElementById("loginSection").style.display = "none";
                     document.getElementById("infoSection").style.display = "block";
+                    document.getElementById("resName").innerText = currentUser.name;
                     
-                    // Đổ dữ liệu
-                    document.getElementById("resName").innerText = data.name;
-                    document.getElementById("resCCCD").innerText = user;
-                    document.getElementById("resDob").innerText = data.dob;
-                    document.getElementById("resAddress").innerText = data.address;
-                    
-                    let familyHtml = "";
-                    data.family.forEach(member => {
-                        familyHtml += `<li class="list-group-item bg-transparent ps-0 border-bottom-0 pb-1">🔹 <strong>${member.split('(')[0]}</strong> <span class="badge bg-secondary rounded-pill">${member.match(/\(([^)]+)\)/)[1]}</span></li>`;
-                    });
-                    document.getElementById("resFamily").innerHTML = familyHtml;
+                    // Mặc định mở tab Thẻ Căn cước đầu tiên
+                    showTab('cccd');
                 } else {
-                    // Sai mật khẩu thì hiện lỗi
                     error.classList.remove("d-none");
                 }
-                
-                // Trả lại trạng thái nút bấm
                 btnText.innerText = "ĐĂNG NHẬP";
                 spinner.classList.add("d-none");
                 document.getElementById("btnLogin").disabled = false;
-                
-            }, 1200); // 1200ms = 1.2 giây
+            }, 800);
+        }
+
+        // Hàm thay đổi nội dung khi bấm vào các nút 4 tiện ích
+        function showTab(tabName) {
+            // Xóa class 'active' ở tất cả các nút
+            document.querySelectorAll('.utility-btn').forEach(btn => btn.classList.remove('active'));
+            // Thêm class 'active' vào nút vừa bấm
+            document.getElementById('btn-' + tabName).classList.add('active');
+
+            let contentDiv = document.getElementById("detailContent");
+            
+            if (tabName === 'cccd') {
+                contentDiv.innerHTML = `
+                    <h5 class="text-primary fw-bold mb-3"><i class="bi bi-person-vcard"></i> THẺ CĂN CƯỚC CÔNG DÂN</h5>
+                    <p class="mb-2"><strong>Số CCCD:</strong> <span class="fs-5 text-danger fw-bold">${currentUser.cccd}</span></p>
+                    <p class="mb-2"><strong>Họ và tên:</strong> ${currentUser.name}</p>
+                    <p class="mb-2"><strong>Ngày sinh:</strong> ${currentUser.dob}</p>
+                    <p class="mb-0"><strong>Quê quán:</strong> ${currentUser.address}</p>
+                `;
+            } 
+            else if (tabName === 'gplx') {
+                contentDiv.innerHTML = `
+                    <h5 class="text-success fw-bold mb-3"><i class="bi bi-car-front"></i> GIẤY PHÉP LÁI XE</h5>
+                    <div class="alert alert-success border-success bg-transparent">
+                        <strong>Trạng thái:</strong> Đã xác thực <i class="bi bi-check-circle-fill"></i><br>
+                        <strong>Thông tin:</strong> ${currentUser.gplx}
+                    </div>
+                `;
+            }
+            else if (tabName === 'bhyt') {
+                contentDiv.innerHTML = `
+                    <h5 class="text-danger fw-bold mb-3"><i class="bi bi-hospital"></i> THẺ BẢO HIỂM Y TẾ</h5>
+                    <div class="alert alert-danger border-danger bg-transparent">
+                        <strong>Trạng thái:</strong> Thẻ đang hợp lệ <i class="bi bi-check-circle-fill"></i><br>
+                        <strong>Thông tin:</strong> ${currentUser.bhyt}
+                    </div>
+                `;
+            }
+            else if (tabName === 'cutru') {
+                let familyHtml = "";
+                currentUser.family.forEach(member => {
+                    familyHtml += `<li class="list-group-item bg-white">🔹 <strong>${member.split('(')[0]}</strong> <span class="badge bg-secondary rounded-pill">${member.match(/\(([^)]+)\)/)[1]}</span></li>`;
+                });
+                contentDiv.innerHTML = `
+                    <h5 class="text-warning fw-bold mb-3"><i class="bi bi-house-door"></i> THÔNG TIN CƯ TRÚ</h5>
+                    <p class="mb-2"><strong>Nơi thường trú:</strong> ${currentUser.address}</p>
+                    <h6 class="fw-bold mt-3 mb-2">Thành viên trong hộ khẩu:</h6>
+                    <ul class="list-group list-group-flush border rounded">${familyHtml}</ul>
+                `;
+            }
         }
     </script>
 </body>
