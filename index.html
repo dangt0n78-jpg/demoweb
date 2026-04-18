@@ -17,12 +17,13 @@
         .btn-gov:hover { background-color: #a51c16; color: white; transform: translateY(-2px); transition: 0.2s;}
         .result-box { display: none; }
         .footer-gov { background-color: #e9ecef; color: #495057; padding: 20px 0; margin-top: auto; font-size: 0.9rem; }
-        
-        /* CSS cho các nút Tiện ích */
         .utility-btn { background: #fff; border: 1px solid #dee2e6; border-radius: 12px; padding: 15px 10px; cursor: pointer; transition: all 0.2s; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;}
-        .utility-btn:hover { background: #f8f9fa; border-color: var(--gov-red); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(218,37,29,0.1); }
+        .utility-btn:hover { border-color: var(--gov-red); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(218,37,29,0.1); }
         .utility-btn.active { border: 2px solid var(--gov-red); background-color: #fff9f9; }
         .utility-icon { font-size: 2rem; margin-bottom: 10px; }
+        .eid-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #dee2e6; }
+        .eid-label { color: #6c757d; font-weight: 500; font-size: 0.9rem; }
+        .eid-val { font-weight: 600; text-align: right; color: #343a40; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -35,7 +36,6 @@
 
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
-            
             <div id="loginSection" class="col-md-5">
                 <div class="card card-login">
                     <div class="card-body p-4 p-md-5">
@@ -58,7 +58,7 @@
             </div>
 
             <div id="infoSection" class="col-md-8 result-box">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header bg-success text-white py-3 border-0 d-flex justify-content-between align-items-center" style="border-radius: 12px 12px 0 0;">
                         <h5 class="mb-0 fw-bold"><i class="bi bi-shield-check"></i> TÀI KHOẢN ĐỊNH DANH MỨC ĐỘ 2</h5>
                         <button class="btn btn-sm btn-light text-danger fw-bold rounded-pill" onclick="location.reload()">Đăng xuất</button>
@@ -72,167 +72,148 @@
                             </div>
                         </div>
                         
-                        <h6 class="fw-bold mb-3 text-secondary">VÍ GIẤY TỜ ĐIỆN TỬ:</h6>
+                        <h6 class="fw-bold mb-3 text-secondary uppercase">Ví giấy tờ điện tử:</h6>
                         <div class="row g-3 mb-4">
-                            <div class="col-6 col-md-3">
-                                <div class="utility-btn" id="btn-cccd" onclick="showTab('cccd')">
-                                    <i class="bi bi-person-vcard utility-icon text-primary"></i>
-                                    <span class="fw-bold small">Thẻ Căn Cước</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="utility-btn" id="btn-gplx" onclick="showTab('gplx')">
-                                    <i class="bi bi-car-front utility-icon text-success"></i>
-                                    <span class="fw-bold small">Giấy phép lái xe</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="utility-btn" id="btn-bhyt" onclick="showTab('bhyt')">
-                                    <i class="bi bi-hospital utility-icon text-danger"></i>
-                                    <span class="fw-bold small">Thẻ BHYT</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="utility-btn" id="btn-cutru" onclick="showTab('cutru')">
-                                    <i class="bi bi-house-door utility-icon text-warning"></i>
-                                    <span class="fw-bold small">Thông tin cư trú</span>
-                                </div>
-                            </div>
+                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-cccd" onclick="showTab('cccd')"><i class="bi bi-person-vcard utility-icon text-primary"></i><span class="fw-bold small">Thẻ Căn Cước</span></div></div>
+                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-gplx" onclick="showTab('gplx')"><i class="bi bi-car-front utility-icon text-success"></i><span class="fw-bold small">Giấy phép lái xe</span></div></div>
+                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-bhyt" onclick="showTab('bhyt')"><i class="bi bi-hospital utility-icon text-danger"></i><span class="fw-bold small">Thẻ BHYT</span></div></div>
+                            <div class="col-6 col-md-3"><div class="utility-btn" id="btn-cutru" onclick="showTab('cutru')"><i class="bi bi-house-door utility-icon text-warning"></i><span class="fw-bold small">Thông tin cư trú</span></div></div>
                         </div>
 
-                        <div id="detailContent" class="bg-light p-4 rounded border shadow-sm">
-                            <div class="text-center text-muted py-3">
-                                <i class="bi bi-hand-index fs-1"></i>
-                                <p class="mt-2">Vui lòng chọn một loại giấy tờ bên trên để xem chi tiết.</p>
-                            </div>
-                        </div>
-
+                        <div id="detailContent" class="bg-white p-2 rounded border shadow-sm"></div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <footer class="footer-gov text-center">
         <div class="container">
-            <p class="mb-1 fw-bold">CỤC CẢNH SÁT QUẢN LÝ HÀNH CHÍNH VỀ TRẬT TỰ XÃ HỘI - BỘ CÔNG AN</p>
-            <p class="mb-0 small">Bản quyền © 2026. Website giả lập phục vụ báo cáo bài tập lớn.</p>
+            <p class="mb-1 fw-bold text-uppercase">Cục Cảnh sát Quản lý hành chính về trật tự xã hội - Bộ Công an</p>
+            <p class="mb-0 small text-muted">Bản quyền © 2026. Website phục vụ đồ án học tập.</p>
         </div>
     </footer>
 
     <script>
-        // CSDL mở rộng thêm dữ liệu GPLX và BHYT
         const db = {
             "001099000003": {
                 pass: "MatKhau123@", 
-                name: "Trần Văn Cha", cccd: "001099000003", dob: "15/02/1978", address: "Hà Nội",
+                name: "Trần Văn Cha", cccd: "001099000003", dob: "15/02/1978",
+                ident: "Nốt ruồi cách 1cm sau cánh mũi phải",
+                issueDate: "10/10/2021",
+                eID: {
+                    noiSinh: "Hà Nội",
+                    noiDangKy: "UBND Phường Phố Vọng, Hai Bà Trưng, Hà Nội",
+                    queQuan: "Hà Nội",
+                    danToc: "Kinh",
+                    tonGiao: "Không",
+                    thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội",
+                    tamTru: "",
+                    oHienTai: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội",
+                    lastIssue: "10/10/2021",
+                    nhomMau: "O",
+                    cmnd9: "012345678",
+                    job: "Kỹ sư",
+                    sdt: "0901234567",
+                    email: "cha.tran@gmail.com"
+                },
                 gplx: "Hạng A1, B2 - Số: 123456789",
                 bhyt: "Mã số: DN4011122233344",
                 family: ["Lê Thị Mẹ (Vợ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"]
             },
-            "001099000004": {
-                pass: "MatKhau456@", 
-                name: "Lê Thị Mẹ", cccd: "001099000004", dob: "22/11/1982", address: "Thanh Hóa",
-                gplx: "Hạng A1 - Số: 987654321",
-                bhyt: "Mã số: HC4011122233355",
-                family: ["Trần Văn Cha (Chồng)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"]
-            },
-            "001099000005": {
-                pass: "MatKhau789@", 
-                name: "Trần Thị Con Gái", cccd: "001099000005", dob: "08/08/2005", address: "Hà Nội",
-                gplx: "Chưa có dữ liệu",
-                bhyt: "Mã số: HS4011122233366",
-                family: ["Trần Văn Cha (Cha)", "Lê Thị Mẹ (Mẹ)", "Trần Văn Con Trai (Em trai)"]
-            },
             "038099000007": {
                 pass: "MatKhau000@", 
-                name: "Lê Hoàng Sinh Viên", cccd: "038099000007", dob: "05/09/2004", address: "Nghệ An",
+                name: "Lê Hoàng Sinh Viên", cccd: "038099000007", dob: "05/09/2004",
+                ident: "Sẹo chấm cách 2cm trên sau đuôi mắt trái",
+                issueDate: "20/09/2022",
+                eID: {
+                    noiSinh: "Nghệ An",
+                    noiDangKy: "Xã Y, Huyện Quỳnh Lưu, Nghệ An",
+                    queQuan: "Nghệ An",
+                    danToc: "Kinh",
+                    tonGiao: "Công giáo",
+                    thuongTru: "Xóm 5, Xã Y, Huyện Quỳnh Lưu, Nghệ An",
+                    tamTru: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội",
+                    oHienTai: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội",
+                    lastIssue: "20/09/2022",
+                    nhomMau: "A",
+                    cmnd9: "",
+                    job: "Sinh viên",
+                    sdt: "0977111222",
+                    email: "sinhvien.le@student.edu.vn"
+                },
                 gplx: "Hạng A1 - Số: 456123789",
                 bhyt: "Mã số: SV4011122233377",
                 family: ["Chủ hộ độc lập (Tạm trú)"]
             }
         };
 
-        let currentUser = null; // Biến lưu người dùng đang đăng nhập
+        let currentUser = null;
 
         function handleLogin() {
             const user = document.getElementById("userCCCD").value.trim();
             const pass = document.getElementById("userPass").value;
             const error = document.getElementById("loginError");
-            const btnText = document.getElementById("loginText");
-            const spinner = document.getElementById("loginSpinner");
+            const btn = document.getElementById("btnLogin");
 
             error.classList.add("d-none");
-            btnText.innerText = "ĐANG XỬ LÝ...";
-            spinner.classList.remove("d-none");
-            document.getElementById("btnLogin").disabled = true;
+            btn.disabled = true;
 
             setTimeout(() => {
                 if (db[user] && db[user].pass === pass) {
-                    currentUser = db[user]; // Lưu data người dùng vào biến
+                    currentUser = db[user];
                     document.getElementById("loginSection").style.display = "none";
                     document.getElementById("infoSection").style.display = "block";
                     document.getElementById("resName").innerText = currentUser.name;
-                    
-                    // Mặc định mở tab Thẻ Căn cước đầu tiên
                     showTab('cccd');
                 } else {
                     error.classList.remove("d-none");
                 }
-                btnText.innerText = "ĐĂNG NHẬP";
-                spinner.classList.add("d-none");
-                document.getElementById("btnLogin").disabled = false;
+                btn.disabled = false;
             }, 800);
         }
 
-        // Hàm thay đổi nội dung khi bấm vào các nút 4 tiện ích
         function showTab(tabName) {
-            // Xóa class 'active' ở tất cả các nút
             document.querySelectorAll('.utility-btn').forEach(btn => btn.classList.remove('active'));
-            // Thêm class 'active' vào nút vừa bấm
             document.getElementById('btn-' + tabName).classList.add('active');
-
             let contentDiv = document.getElementById("detailContent");
             
             if (tabName === 'cccd') {
+                const e = currentUser.eID;
                 contentDiv.innerHTML = `
-                    <h5 class="text-primary fw-bold mb-3"><i class="bi bi-person-vcard"></i> THẺ CĂN CƯỚC CÔNG DÂN</h5>
-                    <p class="mb-2"><strong>Số CCCD:</strong> <span class="fs-5 text-danger fw-bold">${currentUser.cccd}</span></p>
-                    <p class="mb-2"><strong>Họ và tên:</strong> ${currentUser.name}</p>
-                    <p class="mb-2"><strong>Ngày sinh:</strong> ${currentUser.dob}</p>
-                    <p class="mb-0"><strong>Quê quán:</strong> ${currentUser.address}</p>
-                `;
-            } 
-            else if (tabName === 'gplx') {
-                contentDiv.innerHTML = `
-                    <h5 class="text-success fw-bold mb-3"><i class="bi bi-car-front"></i> GIẤY PHÉP LÁI XE</h5>
-                    <div class="alert alert-success border-success bg-transparent">
-                        <strong>Trạng thái:</strong> Đã xác thực <i class="bi bi-check-circle-fill"></i><br>
-                        <strong>Thông tin:</strong> ${currentUser.gplx}
+                    <div class="p-3">
+                        <h5 class="text-primary fw-bold mb-4 border-bottom pb-2"><i class="bi bi-person-vcard"></i> THÔNG TIN THẺ CĂN CƯỚC</h5>
+                        <div class="row mb-4">
+                            <div class="col-12"><p class="mb-2"><strong>Đặc điểm nhận dạng:</strong> ${currentUser.ident}</p></div>
+                            <div class="col-12"><p class="mb-0"><strong>Ngày cấp:</strong> ${currentUser.issueDate}</p></div>
+                        </div>
+
+                        <h5 class="text-danger fw-bold mb-3"><i class="bi bi-cpu"></i> CĂN CƯỚC ĐIỆN TỬ</h5>
+                        <div class="bg-light p-3 rounded">
+                            <div class="eid-item"><span class="eid-label">Nơi sinh</span><span class="eid-val">${e.noiSinh || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Nơi đăng ký khai sinh</span><span class="eid-val">${e.noiDangKy || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Quê quán</span><span class="eid-val">${e.queQuan || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Dân tộc</span><span class="eid-val">${e.danToc || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Tôn giáo</span><span class="eid-val">${e.tonGiao || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Nơi thường trú</span><span class="eid-val">${e.thuongTru || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Nơi tạm trú</span><span class="eid-val">${e.tamTru || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Nơi ở hiện tại</span><span class="eid-val">${e.oHienTai || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Đặc điểm nhận dạng</span><span class="eid-val">${currentUser.ident || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Ngày cấp CCCD gần nhất</span><span class="eid-val">${e.lastIssue || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Nhóm máu</span><span class="eid-val">${e.nhomMau || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Số CMND 9 số</span><span class="eid-val">${e.cmnd9 || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Nghề nghiệp</span><span class="eid-val">${e.job || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Số thuê bao di động</span><span class="eid-val">${e.sdt || "---"}</span></div>
+                            <div class="eid-item"><span class="eid-label">Địa chỉ thư điện tử</span><span class="eid-val">${e.email || "---"}</span></div>
+                        </div>
                     </div>
                 `;
-            }
-            else if (tabName === 'bhyt') {
-                contentDiv.innerHTML = `
-                    <h5 class="text-danger fw-bold mb-3"><i class="bi bi-hospital"></i> THẺ BẢO HIỂM Y TẾ</h5>
-                    <div class="alert alert-danger border-danger bg-transparent">
-                        <strong>Trạng thái:</strong> Thẻ đang hợp lệ <i class="bi bi-check-circle-fill"></i><br>
-                        <strong>Thông tin:</strong> ${currentUser.bhyt}
-                    </div>
-                `;
-            }
-            else if (tabName === 'cutru') {
-                let familyHtml = "";
-                currentUser.family.forEach(member => {
-                    familyHtml += `<li class="list-group-item bg-white">🔹 <strong>${member.split('(')[0]}</strong> <span class="badge bg-secondary rounded-pill">${member.match(/\(([^)]+)\)/)[1]}</span></li>`;
-                });
-                contentDiv.innerHTML = `
-                    <h5 class="text-warning fw-bold mb-3"><i class="bi bi-house-door"></i> THÔNG TIN CƯ TRÚ</h5>
-                    <p class="mb-2"><strong>Nơi thường trú:</strong> ${currentUser.address}</p>
-                    <h6 class="fw-bold mt-3 mb-2">Thành viên trong hộ khẩu:</h6>
-                    <ul class="list-group list-group-flush border rounded">${familyHtml}</ul>
-                `;
+            } else if (tabName === 'gplx') {
+                contentDiv.innerHTML = `<div class="p-4"><h5 class="text-success fw-bold"><i class="bi bi-car-front"></i> GIẤY PHÉP LÁI XE</h5><p>${currentUser.gplx}</p></div>`;
+            } else if (tabName === 'bhyt') {
+                contentDiv.innerHTML = `<div class="p-4"><h5 class="text-danger fw-bold"><i class="bi bi-hospital"></i> THẺ BHYT</h5><p>${currentUser.bhyt}</p></div>`;
+            } else if (tabName === 'cutru') {
+                contentDiv.innerHTML = `<div class="p-4"><h5 class="text-warning fw-bold"><i class="bi bi-house-door"></i> THÔNG TIN CƯ TRÚ</h5><p>${currentUser.eID.thuongTru}</p></div>`;
             }
         }
     </script>
