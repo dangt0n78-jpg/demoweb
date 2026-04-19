@@ -111,58 +111,76 @@
     <script>
         // CSDL TỔNG HỢP (GIỮ NGUYÊN TOÀN BỘ LOGIC CŨ + MỚI)
         const db = {
-            "001099000003": {
-                pass: "MatKhau123@", name: "Trần Văn Cha", cccd: "001099000003", dob: "15/02/1978", ident: "Nốt ruồi cách 1cm sau cánh mũi phải", issueDate: "10/10/2021",
-                eID: { noiSinh: "Hà Nội", noiDangKy: "Phường Phố Vọng, Hai Bà Trưng, Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "", oHienTai: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", lastIssue: "10/10/2021", nhomMau: "O", cmnd9: "012345678", job: "Kỹ sư", sdt: "0901234567", email: "cha.tran@gmail.com" },
-                chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Chủ hộ" },
-                gplx: "Hạng A1, B2 - Số: 123456789",
-                bhyt: {
-                    verified: { code: "DN4011122233344", start: "01/01/2024", end: "31/12/2024", loc: "Bệnh viện Bạch Mai", loc_code: "01-001" },
-                    pending: null, failed: null,
-                    history: [{ date: "01/01/2024", content: "Gia hạn thẻ BHYT thành công." }, { date: "15/12/2023", content: "Thay đổi nơi KCB ban đầu." }]
-                },
-                family: ["Lê Thị Mẹ (Vợ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"],
+            // ================= HỘ KHẨU 1: ÔNG BÀ =================
+            "001099000001": {
+                pass: "hashed_pass_001", 
+                name: "Trần Văn Ông", cccd: "001099000001", dob: "10/10/1950", ident: "Không có", issueDate: "01/01/2021",
+                eID: { noiSinh: "Hà Nội", noiDangKy: "Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "---", oHienTai: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", lastIssue: "01/01/2021", nhomMau: "O", cmnd9: "010123456", job: "Hưu trí", sdt: "0911111111", email: "---" },
+                chuHo: { cccd: "001099000001", name: "Trần Văn Ông", quanHe: "Chủ hộ" },
+                gplx: "Hạng A1 - Số: 29005123456 (Sở GTVT Hà Nội)",
+                bhyt: { verified: { code: "GD40199001001", start: "01/01/2024", end: "31/12/2024", loc: "BHXH TP. Hà Nội", loc_code: "01-001" }, pending: null, failed: null, history: [] },
+                family: ["Nguyễn Thị Bà (Vợ)"],
                 dvcHistory: []
+            },
+            "001099000002": {
+                pass: "hashed_pass_002", 
+                name: "Nguyễn Thị Bà", cccd: "001099000002", dob: "20/05/1955", ident: "Không có", issueDate: "01/01/2021",
+                eID: { noiSinh: "Hà Nội", noiDangKy: "Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Phật giáo", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "---", oHienTai: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", lastIssue: "01/01/2021", nhomMau: "A", cmnd9: "010123457", job: "Hưu trí", sdt: "0922222222", email: "---" },
+                chuHo: { cccd: "001099000001", name: "Trần Văn Ông", quanHe: "Vợ" },
+                gplx: "Chưa có dữ liệu", bhyt: { verified: null, pending: null, failed: null, history: [] },
+                family: ["Trần Văn Ông (Chủ hộ)"], dvcHistory: []
+            },
+
+            // ================= HỘ KHẨU 2: GIA ĐÌNH NGƯỜI CHA =================
+            "001099000003": {
+                pass: "hashed_pass_123", 
+                name: "Trần Văn Cha", cccd: "001099000003", dob: "15/02/1978", ident: "Nốt ruồi cách 1cm sau cánh mũi phải", issueDate: "10/10/2021",
+                eID: { noiSinh: "Hà Nội", noiDangKy: "Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Căn hộ 12A, Chung cư X, Thanh Xuân, Hà Nội", tamTru: "---", oHienTai: "Hồ Chí Minh (Đang tạm vắng)", lastIssue: "10/10/2021", nhomMau: "O", cmnd9: "---", job: "Kỹ sư", sdt: "0901234567", email: "---" },
+                chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Chủ hộ" },
+                gplx: "Hạng B2 - Số: 29015987654 (Sở GTVT Hà Nội)",
+                bhyt: { verified: { code: "DN40109900003", start: "01/01/2024", end: "31/12/2024", loc: "BHXH TP. Hà Nội", loc_code: "01-002" }, pending: null, failed: null, history: [] },
+                family: ["Lê Thị Mẹ (Vợ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"],
+                dvcHistory: [{loai: "Khai báo tạm vắng", noiDen: "Hồ Chí Minh", ngayNop: "25/03/2024", trangThai: "Đã duyệt"}]
             },
             "001099000004": {
-                pass: "MatKhau456@", name: "Lê Thị Mẹ", cccd: "001099000004", dob: "22/11/1982", ident: "Nốt ruồi cách 2cm dưới mép trái", issueDate: "15/05/2021",
-                eID: { noiSinh: "Thanh Hóa", noiDangKy: "UBND Xã Z, Huyện Nông Cống, Thanh Hóa", queQuan: "Thanh Hóa", danToc: "Kinh", tonGiao: "Không", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "", oHienTai: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", lastIssue: "15/05/2021", nhomMau: "B", cmnd9: "171234567", job: "Giáo viên", sdt: "0912345678", email: "me.lethi@gmail.com" },
+                pass: "hashed_pass_456", 
+                name: "Lê Thị Mẹ", cccd: "001099000004", dob: "22/11/1982", ident: "Nốt ruồi cách 2cm dưới mép trái", issueDate: "15/05/2021",
+                eID: { noiSinh: "Thanh Hóa", noiDangKy: "Thanh Hóa", queQuan: "Thanh Hóa", danToc: "Kinh", tonGiao: "Không", thuongTru: "Căn hộ 12A, Chung cư X, Thanh Xuân, Hà Nội", tamTru: "---", oHienTai: "Căn hộ 12A, Chung cư X, Thanh Xuân, Hà Nội", lastIssue: "15/05/2021", nhomMau: "B", cmnd9: "---", job: "---", sdt: "0912345678", email: "---" },
                 chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Vợ" },
-                gplx: "Hạng A1 - Số: 987654321",
-                bhyt: {
-                    verified: { code: "HC4011122233355", start: "01/01/2024", end: "31/12/2028", loc: "Bệnh viện Đa khoa Xanh Pôn", loc_code: "01-004" },
-                    pending: null, failed: null,
-                    history: [{ date: "01/01/2024", content: "Cấp lại thẻ do chuyển đơn vị công tác." }]
-                },
-                family: ["Trần Văn Cha (Chồng)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"],
-                dvcHistory: []
+                gplx: "Chưa có dữ liệu", bhyt: { verified: null, pending: null, failed: null, history: [] },
+                family: ["Trần Văn Cha (Chủ hộ)", "Trần Thị Con Gái (Con đẻ)", "Trần Văn Con Trai (Con đẻ)"], dvcHistory: []
             },
             "001099000005": {
-                pass: "MatKhau789@", name: "Trần Thị Con Gái", cccd: "001099000005", dob: "08/08/2005", ident: "Sẹo thẳng dài 1cm ở đuôi lông mày phải", issueDate: "20/08/2023",
-                eID: { noiSinh: "Hà Nội", noiDangKy: "UBND Phường Phố Vọng, Hai Bà Trưng, Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Số 10, Ngõ 20, Phố Vọng, Hai Bà Trưng, Hà Nội", tamTru: "Ký túc xá ĐH Bách Khoa Hà Nội", oHienTai: "Ký túc xá ĐH Bách Khoa Hà Nội", lastIssue: "20/08/2023", nhomMau: "O", cmnd9: "", job: "Sinh viên", sdt: "0987654321", email: "congai.tran@student.edu.vn" },
+                pass: "hashed_pass_789", 
+                name: "Trần Thị Con Gái", cccd: "001099000005", dob: "08/08/2005", ident: "Sẹo thẳng dài 1cm ở đuôi lông mày phải", issueDate: "20/08/2023",
+                eID: { noiSinh: "Hà Nội", noiDangKy: "Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Căn hộ 12A, Chung cư X, Thanh Xuân, Hà Nội", tamTru: "Ký túc xá ĐH Bách Khoa Hà Nội", oHienTai: "Ký túc xá ĐH Bách Khoa Hà Nội", lastIssue: "20/08/2023", nhomMau: "O", cmnd9: "---", job: "Sinh viên", sdt: "0987654321", email: "---" },
                 chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Con đẻ" },
                 gplx: "Chưa có dữ liệu",
-                bhyt: {
-                    verified: { code: "HS4011122233366", start: "05/09/2023", end: "04/09/2024", loc: "Phòng khám Đa khoa ĐHBK", loc_code: "01-088" },
-                    pending: { code: "HS4011122233366" }, failed: null,
-                    history: [{ date: "05/09/2023", content: "Đăng ký cấp thẻ BHYT HSSV." }]
-                },
+                bhyt: { verified: { code: "HS40109900005", start: "01/09/2023", end: "31/08/2024", loc: "BHXH TP. Hà Nội", loc_code: "01-088" }, pending: null, failed: null, history: [] },
                 family: ["Trần Văn Cha (Cha)", "Lê Thị Mẹ (Mẹ)", "Trần Văn Con Trai (Em trai)"],
+                dvcHistory: [{loai: "Đăng ký tạm trú", noiDen: "Ký túc xá ĐH Bách Khoa Hà Nội", ngayNop: "02/09/2023", trangThai: "Đang chờ duyệt"}]
+            },
+            "001099000006": {
+                pass: "hashed_pass_006", 
+                name: "Trần Văn Con Trai", cccd: "001099000006", dob: "01/12/2010", ident: "Không có", issueDate: "---",
+                eID: { noiSinh: "Hà Nội", noiDangKy: "Hà Nội", queQuan: "Hà Nội", danToc: "Kinh", tonGiao: "Không", thuongTru: "Căn hộ 12A, Chung cư X, Thanh Xuân, Hà Nội", tamTru: "---", oHienTai: "Căn hộ 12A, Chung cư X, Thanh Xuân, Hà Nội", lastIssue: "---", nhomMau: "AB", cmnd9: "---", job: "Học sinh", sdt: "0933333333", email: "---" },
+                chuHo: { cccd: "001099000003", name: "Trần Văn Cha", quanHe: "Con đẻ" },
+                gplx: "Chưa đủ tuổi cấp GPLX",
+                bhyt: { verified: null, pending: { code: "HS40109900006" }, failed: null, history: [] }, // Thẻ đang chờ duyệt theo SQL
+                family: ["Trần Văn Cha (Cha)", "Lê Thị Mẹ (Mẹ)", "Trần Thị Con Gái (Chị gái)"],
                 dvcHistory: []
             },
+
+            // ================= HỘ KHẨU 3: SINH VIÊN (ĐỘC LẬP) =================
             "038099000007": {
-                pass: "MatKhau000@", name: "Lê Hoàng Sinh Viên", cccd: "038099000007", dob: "05/09/2004", ident: "Sẹo chấm cách 2cm trên sau đuôi mắt trái", issueDate: "20/09/2022",
-                eID: { noiSinh: "Nghệ An", noiDangKy: "Xã Y, Quỳnh Lưu, Nghệ An", queQuan: "Nghệ An", danToc: "Kinh", tonGiao: "Công giáo", thuongTru: "Xóm 5, Xã Y, Quỳnh Lưu, Nghệ An", tamTru: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", oHienTai: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", lastIssue: "20/09/2022", nhomMau: "A", cmnd9: "", job: "Sinh viên", sdt: "0977111222", email: "sinhvien.le@student.edu.vn" },
+                pass: "hashed_pass_abc", 
+                name: "Lê Hoàng Sinh Viên", cccd: "038099000007", dob: "05/09/2004", ident: "Sẹo chấm cách 2cm trên sau đuôi mắt trái", issueDate: "20/09/2022",
+                eID: { noiSinh: "Nghệ An", noiDangKy: "Nghệ An", queQuan: "Nghệ An", danToc: "Kinh", tonGiao: "Công giáo", thuongTru: "Xóm 5, Xã Y, Huyện Quỳnh Lưu, Nghệ An", tamTru: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", oHienTai: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", lastIssue: "20/09/2022", nhomMau: "A", cmnd9: "---", job: "Sinh viên", sdt: "0977111222", email: "---" },
                 chuHo: { cccd: "038099000007", name: "Lê Hoàng Sinh Viên", quanHe: "Chủ hộ" },
-                gplx: "Hạng A1 - Số: 456123789",
-                bhyt: {
-                    verified: { code: "SV4011122233377", start: "01/10/2023", end: "30/09/2024", loc: "Bệnh viện Đại học Y Hà Nội", loc_code: "01-015" },
-                    pending: null, 
-                    failed: { code: "SV4011122233366", reason: "Thông tin thẻ cũ không khớp với dữ liệu dân cư." },
-                    history: [{ date: "01/10/2023", content: "Cấp mới thẻ BHYT sinh viên." }]
-                },
+                gplx: "Hạng A1 - Số: 37022123456 (Sở GTVT Nghệ An)",
+                bhyt: { verified: { code: "SV43809900007", start: "01/10/2023", end: "30/09/2024", loc: "BHXH Tỉnh Nghệ An", loc_code: "37-015" }, pending: null, failed: null, history: [] },
                 family: ["Chủ hộ độc lập (Tạm trú)"],
-                dvcHistory: []
+                dvcHistory: [{loai: "Đăng ký tạm trú", noiDen: "Số 5, Ngõ 10, Tạ Quang Bửu, Hà Nội", ngayNop: "05/02/2024", trangThai: "Bị từ chối"}]
             }
         };
 
